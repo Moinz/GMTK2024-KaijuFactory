@@ -6,6 +6,7 @@ public class KaijuController : MonoBehaviour
 {
     public Action<int> OnCoinCollected;
 
+    public K_Input input;
     public Transform kaijuPivotTransform;
 
     [SerializeField]
@@ -15,6 +16,14 @@ public class KaijuController : MonoBehaviour
     public int coinsToCollect = 15;
 
     private int _coinsCollected;
+
+    [SerializeField]
+    private float stepDistance = 0.5f;
+
+    private void Start()
+    {
+        input.Init(OnWalkLeft, OnWalkRight);
+    }
 
     private void OnEnable()
     {
@@ -41,6 +50,33 @@ public class KaijuController : MonoBehaviour
         
         ResetCoin(otherRigidbody);
     }
+    
+    private void OnWalkRight()
+    {
+        Vector3 newPosition = kaijuPivotTransform.position;
+        newPosition += new Vector3(.5f, 0f, 1f);
+        
+        WalkTo(newPosition);
+    }
+
+    private void OnWalkLeft()
+    {
+        Vector3 newPosition = kaijuPivotTransform.position;
+        newPosition += new Vector3(-.5f, 0f, 1f);
+        
+        WalkTo(newPosition);
+    }
+
+    private void WalkTo(Vector3 position)
+    {
+        Vector3 direction = position - transform.position;
+        Quaternion newRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+        position += direction * stepDistance;
+        transform.DOMove(position, 0.25f);
+        transform.DORotateQuaternion(newRotation, 0.25f);
+    }
+
     
     private void HandleOnCoinCollected(int coinsCollected)
     {

@@ -9,13 +9,29 @@ public class CameraController : MonoBehaviour
     
     [SerializeField]
     private Vector2 _horizontalDollyRange, _verticalDollyRange;
+
+    private KaijuController _kaijuController;
+    private float cameraOffset;
+    private bool _initialized;
     
     private IEnumerator Start()
     {
         while (!GameManager.Instance.isInitialized)
             yield return null;
 
-        GameManager.Instance.kaijuController.OnCoinCollected += HandleCoinCollected;
+        _kaijuController = GameManager.Instance.kaijuController;
+        _kaijuController.OnCoinCollected += HandleCoinCollected;
+        cameraOffset = Vector3.Distance(transform.position, _kaijuController.transform.position);
+    }
+
+    private void Update()
+    {
+        if (_initialized)
+            return;
+        
+        var position = _kaijuController.transform.position;
+        position.z -= cameraOffset;
+        transform.position = position;
     }
 
     private void HandleCoinCollected(int coins)

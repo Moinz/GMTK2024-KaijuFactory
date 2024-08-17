@@ -161,6 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d3385e78b6471e8e3ddc9946ab6c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    walkLeftAction: {fileID: 2698762989210461625, guid: 4a56527c1f0f62147a67b741681d549e,
+      type: 3}
+    walkRightAction: {fileID: 1517377118911445110, guid: 4a56527c1f0f62147a67b741681d549e,
+      type: 3}
   kaijuPivotTransform: {fileID: 330487022600907079}
   kaijuMinMaxScale: {x: 1, y: 6}
   coinsToCollect: 45
