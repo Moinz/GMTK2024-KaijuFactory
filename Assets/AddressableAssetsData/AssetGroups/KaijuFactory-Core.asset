@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: KaijuFactory-Core
+  m_EditorClassIdentifier: 
+  m_GroupName: KaijuFactory-Core
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d129721621bb02843b05d25962e352da
+  m_SerializeEntries:
+  - m_GUID: 191a173215199ec4ab60cb43e1d47c0c
+    m_Address: Kaiju
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4fd1652008ee0894da05e40031949b87
+    m_Address: Coin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 79c77428eaac6fe48a710ee61f459bfc, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a41d0f10deed3944aa6c9cc1c1125cd4, type: 2}
+    - {fileID: 11400000, guid: c834be36952467f4fb9ddea2f8666ec9, type: 2}
