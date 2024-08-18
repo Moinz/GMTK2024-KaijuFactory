@@ -1,0 +1,60 @@
+{
+    "name": "KaijuInput",
+    "maps": [
+        {
+            "name": "KaijuAction",
+            "id": "2ef050be-5d3f-4fb1-b778-940578e3f8ec",
+            "actions": [
+                {
+                    "name": "Walk Left",
+                    "type": "Button",
+                    "id": "5c4849d3-4a7c-46ee-93a1-0c8012a265be",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Walk Right",
+                    "type": "Button",
+                    "id": "21270bd4-10f9-4954-9aee-8af91fe473f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "82375dac-9479-44b3-8f05-93180372ea49",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee62bc9e-430d-4bf4-a0ba-e29ea1fc764b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Kaiju",
+            "bindingGroup": "Kaiju",
+            "devices": []
+        }
+    ]
+}
