@@ -145,9 +145,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &3831631340480691831
 MonoBehaviour:
@@ -169,6 +169,7 @@ MonoBehaviour:
   kaijuPivotTransform: {fileID: 330487022600907079}
   kaijuMinMaxScale: {x: 1, y: 6}
   coinsToCollect: 45
+  stepDistance: 0.25
 --- !u!1001 &5082183386709696324
 PrefabInstance:
   m_ObjectHideFlags: 0

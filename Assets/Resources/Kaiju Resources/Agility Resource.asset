@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c61ac00e8443448f4f607b90b22609, type: 3}
   m_Name: Agility Resource
   m_EditorClassIdentifier: 
-  workCycle: 30
+  workCycle: 5
   stages: 4
   resourceSprite: {fileID: 21300000, guid: eb5ce20fdd9a75246864bdca26394499, type: 3}
-  stageSprite: {fileID: 0}

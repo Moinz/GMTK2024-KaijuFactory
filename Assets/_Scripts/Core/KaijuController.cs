@@ -8,6 +8,10 @@ public class KaijuController : MonoBehaviour
 
     public K_Input input;
     public Transform kaijuPivotTransform;
+    
+    private Rigidbody kaijuRigidBody;
+    
+    private BuildingGenerator.Building building;
 
     [SerializeField]
     private Vector2 kaijuMinMaxScale = new(1f, 10f);
@@ -20,9 +24,15 @@ public class KaijuController : MonoBehaviour
     [SerializeField]
     private float stepDistance = 0.5f;
 
+    [SerializeField]
+    private float walkCooldown = 5f;
+    private float nextAutomaticMovement;
+    
     private void Start()
     {
-        input.Init(OnWalkLeft, OnWalkRight);
+        input.Init(ToggleWalk, ToggleWalk);
+        
+        kaijuRigidBody = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -34,21 +44,69 @@ public class KaijuController : MonoBehaviour
     {
         OnCoinCollected -= HandleOnCoinCollected;
     }
+    
+    private void Update()
+    {
+        if (AudioSettings.dspTime < nextAutomaticMovement)
+            return;
+        
+        nextAutomaticMovement = (float) AudioSettings.dspTime + walkCooldown;
+        ToggleWalk();
+    }
+
+
 
     private void OnCollisionEnter(Collision other)
     {
         var otherRigidbody = other.rigidbody;
-        
+
         if (!otherRigidbody)
+        {
+            Debug.Log("Kaiju Collision: No rigidbody", other.gameObject);
             return;
-        
-        if (!otherRigidbody.CompareTag("Coin"))
+        }
+
+        ProcessBuilding(otherRigidbody);
+        ProcessItem(otherRigidbody);
+    }
+
+    private void ProcessItem(Rigidbody otherRigidbody)
+    {
+        if (!otherRigidbody.CompareTag("Item"))
             return;
 
+        Debug.Log("Kaiju Collision: Item");
         _coinsCollected++;
         OnCoinCollected?.Invoke(_coinsCollected);
         
         ResetCoin(otherRigidbody);
+    }
+
+    private void ProcessBuilding(Rigidbody rigidbody)
+    {
+        if (!rigidbody.gameObject.CompareTag("Building"))
+            return;
+        
+        Debug.Log("Kaiju Collision: Building");
+        
+        var building = rigidbody.GetComponent<BuildingGenerator.Building>();
+        if (!building)
+        {
+            Debug.LogError("Building is null, cannot process building.", rigidbody);
+        }
+        
+        this.building = building;
+    }
+
+    private bool _isRight;
+    private void ToggleWalk()
+    {
+        _isRight = !_isRight;
+        
+        if (_isRight)
+            OnWalkRight();
+        else
+            OnWalkLeft();
     }
     
     private void OnWalkRight()
@@ -73,11 +131,21 @@ public class KaijuController : MonoBehaviour
         Quaternion newRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         targetPosition = transform.position + Vector3.forward * stepDistance;
-        transform.DOMove(targetPosition, 0.25f);
-        transform.DORotateQuaternion(newRotation, 0.25f);
+        
+        if (!building)
+            kaijuRigidBody.DOMove(targetPosition, 0.25f);
+        else
+        {
+            bool causedDeath = building.InflictDamage(0.25f);
+
+            if (causedDeath)
+                building = null;
+        }
+
+        
+        kaijuPivotTransform.DORotateQuaternion(newRotation, 0.25f);
     }
 
-    
     private void HandleOnCoinCollected(int coinsCollected)
     {
         Scale(coinsCollected);
