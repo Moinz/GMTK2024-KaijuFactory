@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -15,6 +16,7 @@ public class ResourceGame : MonoBehaviour
     public Resource Resource;
 
     public SpriteRenderer resourceIconRenderer;
+    public SpriteRenderer resourceRenderer;
     public SpriteMask resourceMask;
     
     public AssetReference stageSprite;
@@ -65,6 +67,11 @@ public class ResourceGame : MonoBehaviour
     {
         if (_currentStage > stageRenderers.Count - 1)
         {
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(resourceRenderer.transform.DOLocalMove(Vector3.down * 10f, 3f));
+            sequence.AppendCallback(() => resourceRenderer.transform.localPosition = Vector3.up * 30f);
+            sequence.Play();
+            
             Debug.Log("Resource Gained");
             return;
         }

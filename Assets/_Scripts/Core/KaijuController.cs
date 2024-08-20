@@ -67,13 +67,13 @@ public class KaijuController : MonoBehaviour
         WalkTo(newPosition);
     }
 
-    private void WalkTo(Vector3 position)
+    private void WalkTo(Vector3 targetPosition)
     {
-        Vector3 direction = position - transform.position;
+        Vector3 direction = targetPosition - transform.position;
         Quaternion newRotation = Quaternion.LookRotation(direction, Vector3.up);
 
-        position += direction * stepDistance;
-        transform.DOMove(position, 0.25f);
+        targetPosition = transform.position + Vector3.forward * stepDistance;
+        transform.DOMove(targetPosition, 0.25f);
         transform.DORotateQuaternion(newRotation, 0.25f);
     }
 
